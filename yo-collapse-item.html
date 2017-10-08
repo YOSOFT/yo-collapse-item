@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="yo-collapse-item">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `yo-collapse-item`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class YoCollapseItem extends Polymer.Element {
+      static get is() { return 'yo-collapse-item'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'yo-collapse-item'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(YoCollapseItem.is, YoCollapseItem);
+  </script>
+</dom-module>

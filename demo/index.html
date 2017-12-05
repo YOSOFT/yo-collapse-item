@@ -19,12 +19,176 @@
   </head>
   <body>
     <div class="vertical-section-container centered">
-      <h3>Basic yo-collapse-item demo</h3>
-      <demo-snippet>
-        <template>
-          <yo-collapse-item></yo-collapse-item>
-        </template>
-      </demo-snippet>
+        <h3>Basic yo-tree demo</h3>
+        <demo-snippet>
+          <template>
+              <yo-collapse-item id="tree1" noicon></yo-collapse-item>
+              <script> 
+                 var tree = document.querySelector('#tree1');
+                    // Only one node.
+                  tree.data = {
+                      "name": "Hola"
+                  };               
+              </script>
+          </template>
+        </demo-snippet>
+
+        <h3>Basic demo with one root node and some children</h3>
+        <demo-snippet>
+            <template>
+                <yo-collapse-item id="tree2"></yo-collapse-item>
+                <script>
+    
+                    var tree = document.querySelector('#tree2');
+    
+                    // Some children.
+                    tree.data = {
+                        "name": "Hello",
+                        "children": [{
+                            "name": "World"
+                        }, {
+                            "name": "There"
+                        }, {
+                            "name": "You"
+                        }]
+                    };
+                </script>
+            </template>
+        </demo-snippet>
+
+        <h3>Complex tree demo</h3>
+        <demo-snippet>
+            <template>
+                <yo-collapse-item id="tree3" multiple></yo-collapse-item>
+                <script>
+    
+                    var tree = document.querySelector('#tree3');
+    
+                    // Setting some data.
+                    tree.data = {
+                        "name": "GOT",
+                        "icon": "theaters",
+                        "open": true,
+                        "check": true,
+                        "children": [
+                            {
+                                "name": "Starks",
+                                "icon": "turned-in",
+                                "check": true,
+                                "children": [{
+                                    "icon": "account-circle",
+                                    "name": "Eddard",
+                                    "check": true
+                                }, {
+                                    "name": "Catelyn",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Sansa",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Robb",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Bran",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Arya",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Rickson",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }]
+                            },
+                            {
+                                "name": "Lannisters",
+                                "open": true,
+                                "icon": "turned-in",
+                                "check": true,
+                                "children": [{
+                                    "name": "Tywin",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Tyrion",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Jaime",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Cersei",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Tommen",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Myrcella",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Joffrey",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }   ]
+                            },
+                            {
+                                "name": "Targaryens",
+                                "icon": "turned-in",
+                                "check": true, 
+                                "children": [{
+                                    "name": "Daenerys",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Viserys",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }]
+                            },
+                            {
+                                "name": "Baratheons",
+                                "icon": "turned-in",
+                                "open": true,
+                                "check": true,
+                                "children": [{
+                                    "name": "Robert",
+                                    "icon": "account-circle",
+                                    "check": false
+                                }, {
+                                    "name": "Stannis",
+                                    "icon": "account-circle",
+                                    "check": true
+                                }, {
+                                    "name": "Renly",
+                                    "icon": "account-circle"
+                                }]
+                            }
+                        ]
+                    };
+    
+                    // Adding one action.
+                    tree.actions = [{
+                        label: 'show',
+                        event: 'onshow'
+                    }];
+    
+                    // Finally adding a listener for that action.
+                    tree.addEventListener('onshow', function(event) {
+                        alert('This is ' + event.detail.data.name);
+                    });
+    
+                </script>
+            </template>
+        </demo-snippet>
     </div>
   </body>
 </html>

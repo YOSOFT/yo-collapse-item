@@ -1,13 +1,12 @@
 <link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="yo-collapse-item-node.html">
+
 
 <dom-module id="yo-collapse-item">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <h2>Hello [[prop1]]!</h2>
+  <template>    
+    <div>
+        <yo-collapse-item-node  id="root" data="[[data]]" noicon="{{noicon}}"></yo-collapse-item-node>
+    </div> 
   </template>
 
   <script>
@@ -23,12 +22,65 @@
       static get is() { return 'yo-collapse-item'; }
       static get properties() {
         return {
-          prop1: {
-            type: String,
-            value: 'yo-collapse-item'
+          data: {
+            type: Object,
+            value: function() {
+                return null;
+            },
+            observer: "_dataChanged"
+          },
+          selected: {
+            type: Object,
+            value: null,
+            notify: true
+          },
+          noicon:{
+            type:Boolean,
+            value: false
           }
         };
       }
+
+      /**
+      * Called whenever the data is changed to notify the lower nodes.
+      */
+      _dataChanged()  {
+            console.log(this.data);
+            this.$.root.data = this.data;
+      }
+      _selectNode(e) {
+        console.log("Select node",e.detail.check);
+        if(this.selected) {
+          this.toggleClass("selected", false, this.selected);
+      }
+
+        // Only selects `<yo-tree-node>`.
+        if (e.detail && e.detail.node.tagName === 'YO-COLLAPSE-ITEM-NODE') {
+                  this.selected = e.detail.node;
+                  this.toggleClass("selected", true, this.selected);
+        } else {
+                  this.selected = null;
+        }
+      }
+      // metodo de legacy-element-mixin
+      toggleClass(name, bool, node) {
+        node = /** @type {Element} */ (node || this);
+        if (arguments.length == 1) {
+          bool = !node.classList.contains(name);
+        }
+        if (bool) {
+          node.classList.add(name);
+        } else {
+          node.classList.remove(name);
+        }
+      }
+
+      ready() {
+        super.ready();
+        this.addEventListener('select', e => this._selectNode(e));
+      }
+
+      
     }
 
     window.customElements.define(YoCollapseItem.is, YoCollapseItem);
